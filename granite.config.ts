@@ -4,6 +4,12 @@ export default defineConfig({
   // 앱 이름 (콘솔에서 등록한 이름과 동일해야 함)
   appName: 'albi',
   
+  // 앱 ID
+  appId: 'kr.albi.app',
+  
+  // 버전
+  version: '1.0.0',
+  
   // 브랜드 정보
   brand: {
     displayName: 'Albi - AI 취업 준비',
@@ -11,23 +17,54 @@ export default defineConfig({
     icon: '', // 아이콘 URL (콘솔에서 업로드 후 추가)
   },
   
-  // WebView 설정 (기존 웹앱 https://albi.kr 사용)
-  web: {
-    host: 'albi.kr',
-    port: 443,
-    commands: {
-      dev: 'echo "WebView uses external URL"',
-      build: 'echo "WebView uses external URL"',
-    },
+  // WebView 설정 - 외부 URL 로드
+  webView: {
+    url: 'https://albi.kr',
+    allowedDomains: [
+      'https://albi.kr',
+      'https://*.albi.kr',
+      'https://albi-app.pages.dev',
+      'https://*.albi-app.pages.dev',
+    ],
+    // JavaScript 활성화
+    javaScriptEnabled: true,
+    // DOM Storage 활성화
+    domStorageEnabled: true,
+    // 서드파티 쿠키 허용
+    thirdPartyCookiesEnabled: true,
   },
   
-  // WebView 타입 (비게임)
-  webViewProps: {
-    type: 'partner',
+  // 딥링크 설정
+  deepLinks: {
+    scheme: 'albi',
+    host: 'screen',
+    paths: [
+      '/mentor-chat',
+      '/interview',
+      '/payment',
+      '/profile',
+      '/portfolio',
+    ],
   },
   
-  // 빌드 출력 디렉토리
-  outdir: 'dist',
+  // Toss 로그인 연동
+  tossLogin: {
+    enabled: true,
+    scopes: [
+      'USER_NAME',
+      'USER_EMAIL',
+      'USER_PHONE',
+    ],
+  },
+  
+  // 메타데이터
+  metadata: {
+    category: 'business',
+    tags: ['취업', '면접', 'AI', '멘토', '이력서'],
+    supportUrl: 'https://albi.kr/contact.html',
+    privacyPolicyUrl: 'https://albi.kr/privacy.html',
+    termsOfServiceUrl: 'https://albi.kr/terms.html',
+  },
   
   // 권한 요청
   permissions: [
