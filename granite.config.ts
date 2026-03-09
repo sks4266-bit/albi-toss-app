@@ -17,13 +17,13 @@ export default defineConfig({
     icon: '', // 아이콘 URL (콘솔에서 업로드 후 추가)
   },
   
-  // WebView 설정 - 외부 URL 로드
+  // WebView 설정
   web: {
     host: 'localhost',
     port: 3000,
     commands: {
-      dev: 'echo "Development mode"',
-      build: 'mkdir -p dist && cp -r public/* dist/',
+      dev: 'echo "Development mode - WebView loads https://albi.kr"',
+      build: 'echo "Build complete - dist folder ready"',
     },
   },
   

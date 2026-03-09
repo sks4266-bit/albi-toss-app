@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "ait dev",
-    "build": "ait build",
+    "prebuild": "node -e \"const fs = require('fs'); if (!fs.existsSync('dist')) fs.mkdirSync('dist', {recursive: true}); const files = fs.readdirSync('public'); files.forEach(f => fs.cpSync('public/' + f, 'dist/' + f, {recursive: true}));\"",
+    "build": "npm run prebuild && ait build",
     "deploy": "ait deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
