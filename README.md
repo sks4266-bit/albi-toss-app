@@ -1,5 +1,9 @@
 # 🚀 Albi 토스 앱인토스 (Toss Apps-in-Toss)
 
+![Build Status](https://github.com/YOUR_USERNAME/albi-toss-app/workflows/Build%20AIT%20Bundle/badge.svg)
+![License](https://img.shields.io/badge/license-ISC-blue.svg)
+![Node Version](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg)
+
 ## 📱 프로젝트 정보
 
 - **앱 이름**: Albi - AI 취업 준비
@@ -39,18 +43,65 @@ npm install
 
 ## 📦 빌드 및 배포
 
+### 🤖 자동 빌드 (GitHub Actions) ⭐ 권장
+
+**GitHub Actions가 자동으로 Node 24 환경에서 빌드합니다!**
+
+#### 방법 1: 자동 빌드 (코드 푸시)
+```bash
+git add .
+git commit -m "feat: Update configuration"
+git push origin main
+# → GitHub Actions 자동 실행 → Artifacts 다운로드
+```
+
+#### 방법 2: 수동 빌드 (GitHub UI)
+```
+1. GitHub 저장소 → Actions 탭
+2. "Build AIT Bundle" 선택
+3. "Run workflow" 버튼 클릭
+4. 빌드 완료 후 Artifacts 다운로드
+```
+
+#### 방법 3: 릴리스 생성 (태그 푸시)
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+# → GitHub Release 자동 생성 → .ait 파일 첨부
+```
+
+**📥 다운로드 위치**:
+- **Artifacts**: GitHub → Actions → 워크플로우 실행 → Artifacts
+- **Release**: GitHub → Releases → Assets
+
+**📖 자세한 가이드**: [.github/WORKFLOWS.md](.github/WORKFLOWS.md)
+
+---
+
+### 💻 로컬 빌드 (Node 24+ 필요)
+
+**주의**: 샌드박스는 Node v20이므로 로컬 컴퓨터에서만 가능
+
+```bash
+# Node 24 설치
+nvm install 24
+nvm use 24
+
+# 빌드
+npm install
+npm run build
+# → dist/albi-1.0.0.ait 생성
+```
+
+---
+
 ### 로컬 개발 (개발 서버)
 ```bash
 npm run dev
+# 샌드박스 앱에서 intoss://albi 접속
 ```
 
-### 프로덕션 빌드 (.ait 파일 생성)
-```bash
-npm run build
-```
-→ `dist/albi-1.0.0.ait` 파일 생성
-
-### 토스 콘솔 배포
+---
 ```bash
 npm run deploy -- --api-key <YOUR_TOSS_API_KEY>
 ```

@@ -1,0 +1,80 @@
+name: Build AIT Bundle
+
+on:
+  # 수동 실행 (GitHub Actions 탭에서 "Run workflow" 버튼 클릭)
+  workflow_dispatch:
+  
+  # main 브랜치에 푸시할 때 자동 실행
+  push:
+    branches:
+      - main
+    paths:
+      - 'granite.config.ts'
+      - 'public/**'
+      - 'package.json'
+      - '.github/workflows/build-ait.yml'
+
+jobs:
+  build:
+    name: Build .ait Bundle
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # 2. Node.js 24 설치 (ait build 요구사항)
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      
+      # 3. Node 버전 확인
+      - name: Verify Node version
+        run: |
+          echo "Node version: $(node --version)"
+          echo "npm version: $(npm --version)"
+      
+      # 4. 의존성 설치
+      - name: Install dependencies
+        run: npm ci
+      
+      # 5. .ait 빌드
+      - name: Build .ait bundle
+        run: npm run build
+      
+      # 6. 빌드 결과 확인
+      - name: Check build output
+        run: |
+          echo "✅ Build completed!"
+          ls -lh dist/
+          if [ -f dist/*.ait ]; then
+            echo "✅ .ait file found:"
+            ls -lh dist/*.ait
+          else
+            echo "❌ .ait file not found!"
+            exit 1
+          fi
+      
+      # 7. Artifacts 업로드 (다운로드 가능)
+      - name: Upload .ait bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: albi-toss-app-${{ github.sha }}
+          path: dist/*.ait
+          retention-days: 30
+      
+      # 8. 빌드 성공 알림
+      - name: Build summary
+        run: |
+          echo "## 🎉 Build Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- **File**: \`$(ls dist/*.ait)\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Size**: $(du -h dist/*.ait | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📥 Download" >> $GITHUB_STEP_SUMMARY
+          echo "Go to **Actions** tab → Select this workflow run → Download artifacts" >> $GITHUB_STEP_SUMMARY

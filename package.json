@@ -1,6 +1,7 @@
 {
   "name": "albi-toss-app",
   "version": "1.0.0",
+  "description": "Albi - AI 취업 준비 앱인토스 미니앱",
   "main": "index.js",
   "scripts": {
     "dev": "ait dev",
@@ -8,10 +9,24 @@
     "deploy": "ait deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/albi-toss-app.git"
+  },
+  "keywords": [
+    "toss",
+    "apps-in-toss",
+    "albi",
+    "ai",
+    "interview",
+    "job"
+  ],
+  "author": "Albi Team <albi260128@gmail.com>",
   "license": "ISC",
-  "description": "Albi - AI 취업 준비 앱인토스 미니앱",
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
+  },
   "dependencies": {
     "@apps-in-toss/web-framework": "^2.0.1"
   }

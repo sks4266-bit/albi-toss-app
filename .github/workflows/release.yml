@@ -1,0 +1,70 @@
+name: Release AIT Bundle
+
+on:
+  # 태그 푸시 시 실행 (예: v1.0.0)
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # 2. Node.js 24 설치
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      
+      # 3. 의존성 설치
+      - name: Install dependencies
+        run: npm ci
+      
+      # 4. .ait 빌드
+      - name: Build .ait bundle
+        run: npm run build
+      
+      # 5. 빌드 결과 확인
+      - name: Verify build
+        id: verify
+        run: |
+          AIT_FILE=$(ls dist/*.ait)
+          echo "ait_file=$AIT_FILE" >> $GITHUB_OUTPUT
+          echo "ait_filename=$(basename $AIT_FILE)" >> $GITHUB_OUTPUT
+          echo "ait_size=$(du -h $AIT_FILE | cut -f1)" >> $GITHUB_OUTPUT
+      
+      # 6. GitHub Release 생성
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*.ait
+          body: |
+            ## 🚀 Albi Toss Apps-in-Toss 릴리스
+            
+            ### 📦 다운로드
+            - **파일명**: `${{ steps.verify.outputs.ait_filename }}`
+            - **파일 크기**: ${{ steps.verify.outputs.ait_size }}
+            
+            ### 📋 배포 방법
+            1. `.ait` 파일 다운로드
+            2. [Toss 콘솔](https://console-apps-in-toss.toss.im/) 접속
+            3. 앱 만들기 → `.ait` 파일 업로드
+            4. 앱 정보 입력 (아이콘, 스크린샷)
+            5. 심사 제출
+            
+            ### 🔗 관련 링크
+            - **Toss 개발자센터**: https://developers-apps-in-toss.toss.im/
+            - **Albi 웹사이트**: https://albi.kr
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
