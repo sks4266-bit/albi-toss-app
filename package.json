@@ -11,5 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "Albi - AI 취업 준비 앱인토스 미니앱",
+  "dependencies": {
+    "@apps-in-toss/web-framework": "^2.0.1"
+  }
 }
