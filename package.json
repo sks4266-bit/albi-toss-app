@@ -2,7 +2,7 @@
   "name": "albi-toss-app",
   "version": "1.0.0",
   "description": "Albi - AI 취업 준비 앱인토스 미니앱",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "ait dev",
     "build": "ait build",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/albi-toss-app.git"
+    "url": "https://github.com/sks4266-bit/albi-toss-app.git"
   },
   "keywords": [
     "toss",
@@ -29,5 +29,8 @@
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^2.0.1"
+  },
+  "devDependencies": {
+    "@apps-in-toss/cli": "^2.0.1"
   }
 }
