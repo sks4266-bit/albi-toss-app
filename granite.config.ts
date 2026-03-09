@@ -18,6 +18,16 @@ export default defineConfig({
   },
   
   // WebView 설정 - 외부 URL 로드
+  web: {
+    host: 'localhost',
+    port: 3000,
+    commands: {
+      dev: 'echo "Development mode"',
+      build: 'mkdir -p dist && cp -r public/* dist/',
+    },
+  },
+  
+  // WebView URL (런타임에 로드할 실제 URL)
   webView: {
     url: 'https://albi.kr',
     allowedDomains: [
@@ -26,11 +36,8 @@ export default defineConfig({
       'https://albi-app.pages.dev',
       'https://*.albi-app.pages.dev',
     ],
-    // JavaScript 활성화
     javaScriptEnabled: true,
-    // DOM Storage 활성화
     domStorageEnabled: true,
-    // 서드파티 쿠키 허용
     thirdPartyCookiesEnabled: true,
   },
   
