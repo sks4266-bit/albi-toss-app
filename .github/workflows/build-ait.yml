@@ -29,7 +29,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'npm'
       
       # 3. Node 버전 확인
       - name: Verify Node version
@@ -39,7 +38,7 @@ jobs:
       
       # 4. 의존성 설치
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       
       # 5. .ait 빌드
       - name: Build .ait bundle
