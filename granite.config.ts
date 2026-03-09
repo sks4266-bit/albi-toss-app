@@ -22,8 +22,8 @@ export default defineConfig({
     host: 'localhost',
     port: 3000,
     commands: {
-      dev: 'echo "Development mode - WebView loads https://albi.kr"',
-      build: 'echo "Build complete - dist folder ready"',
+      dev: '',
+      build: '',
     },
   },
   
