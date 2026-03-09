@@ -1,0 +1,15 @@
+{
+  "name": "albi-toss-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ait dev",
+    "build": "ait build",
+    "deploy": "ait deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

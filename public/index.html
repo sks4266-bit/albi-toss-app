@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Albi - AI 취업 준비</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #6366F1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        #loading h1 {
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #loading p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        #webview-container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 로딩 화면 -->
+    <div id="loading">
+        <h1>Albi</h1>
+        <p>AI 취업 준비 플랫폼</p>
+        <div class="spinner"></div>
+    </div>
+
+    <!-- WebView 컨테이너 -->
+    <div id="webview-container"></div>
+
+    <script>
+        // 토스 앱인토스 SDK 초기화 (자동 로드됨)
+        
+        // 기존 웹앱 로드
+        const loadWebApp = () => {
+            const container = document.getElementById('webview-container');
+            const loading = document.getElementById('loading');
+            
+            // iframe 생성 (WebView 시뮬레이션)
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://albi.kr';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            iframe.style.display = 'none';
+            
+            // iframe 로드 완료 시
+            iframe.onload = () => {
+                // 로딩 화면 숨기기
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    iframe.style.display = 'block';
+                }, 500);
+            };
+            
+            // iframe 에러 처리
+            iframe.onerror = () => {
+                loading.innerHTML = `
+                    <h1>⚠️ 로딩 실패</h1>
+                    <p>네트워크 연결을 확인해주세요</p>
+                    <button onclick="location.reload()" style="
+                        margin-top: 20px;
+                        padding: 12px 24px;
+                        background: white;
+                        color: #6366F1;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">다시 시도</button>
+                `;
+            };
+            
+            container.appendChild(iframe);
+        };
+        
+        // 페이지 로드 시 웹앱 로드
+        window.addEventListener('DOMContentLoaded', loadWebApp);
+        
+        // 토스 앱 메시지 수신 (딥링크 처리)
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'TOSS_DEEP_LINK') {
+                const { path, params } = event.data;
+                console.log('Deep link:', path, params);
+                // 딥링크에 따라 특정 페이지로 이동
+                // 예: path === '/payment' → https://albi.kr/payment.html
+            }
+        });
+    </script>
+</body>
+</html>
