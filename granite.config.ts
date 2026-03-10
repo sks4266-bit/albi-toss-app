@@ -27,6 +27,9 @@ export default defineConfig({
     },
   },
   
+  // 빌드 출력 디렉토리
+  outdir: 'dist',
+  
   // WebView URL (런타임에 로드할 실제 URL)
   webView: {
     url: 'https://albi.kr',
