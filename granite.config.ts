@@ -14,7 +14,7 @@ export default defineConfig({
   brand: {
     displayName: 'Albi - AI 취업 준비',
     primaryColor: '#6366F1',
-    icon: '', // 아이콘 URL (콘솔에서 업로드 후 추가)
+    icon: 'https://via.placeholder.com/600x600/6366F1/FFFFFF?text=Albi', // 아이콘 URL (콘솔에서 업로드 후 추가)
   },
   
   // WebView 설정
