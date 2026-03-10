@@ -66,6 +66,8 @@ function App() {
   return (
     <div style={{
       minHeight: '100vh',
+      maxHeight: '100vh',
+      overflow: 'auto',
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       display: 'flex',
       flexDirection: 'column',
@@ -74,8 +76,8 @@ function App() {
       padding: '20px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", sans-serif',
       position: 'relative',
-      overflow: 'hidden',
-      colorScheme: 'light' // 라이트 모드 명시
+      colorScheme: 'light', // 라이트 모드 명시
+      boxSizing: 'border-box'
     }}>
       {/* 배경 애니메이션 요소 */}
       <BackgroundStars />
@@ -83,12 +85,11 @@ function App() {
       <AnimatePresence mode="wait">
         {step === 'welcome' && <WelcomeScreen text={showText} onNext={nextStep} userName={userName} setUserName={setUserName} />}
         {step === 'intro' && <IntroScreen onNext={nextStep} userName={userName} />}
-        {step === 'aptitude' && <AptitudeScreen onNext={nextStep} openWebView={openWebView} />}
+        {step === 'aptitude' && <AptitudeScreen onNext={nextStep} />}
         {step === 'interview-intro' && <InterviewIntroScreen onNext={nextStep} userName={userName} />}
-        {step === 'interview' && <InterviewScreen onNext={nextStep} openWebView={openWebView} />}
+        {step === 'interview' && <InterviewScreen onNext={nextStep} />}
         {step === 'result' && <ResultScreen onNext={nextStep} userName={userName} />}
-        {step === 'subscribe' && <SubscribeScreen openWebView={openWebView} />}
-        {step === 'webview' && <WebViewScreen url={webViewState.url} title={webViewState.title} onBack={() => setStep('subscribe')} />}
+        {step === 'subscribe' && <SubscribeScreen />}
       </AnimatePresence>
     </div>
   );
@@ -149,9 +150,9 @@ function AlbiCharacter({ emotion = 'happy' }: { emotion?: 'happy' | 'excited' | 
   };
 
   const emojis = {
-    happy: '😊',
-    excited: '🚀',
-    thinking: '🤔'
+    happy: 'https://www.genspark.ai/api/files/s/vN4MCd5h', // 알비 캐릭터 이미지
+    excited: 'https://www.genspark.ai/api/files/s/vN4MCd5h',
+    thinking: 'https://www.genspark.ai/api/files/s/vN4MCd5h'
   };
 
   return (
@@ -204,8 +205,10 @@ function AlbiCharacter({ emotion = 'happy' }: { emotion?: 'happy' | 'excited' | 
           }}
         />
         
-        {/* 알비 얼굴 */}
-        <motion.div
+        {/* 알비 캐릭터 이미지 */}
+        <motion.img
+          src={emojis[emotion]}
+          alt="Albi Character"
           animate={{
             scale: [1, 1.1, 1]
           }}
@@ -215,13 +218,13 @@ function AlbiCharacter({ emotion = 'happy' }: { emotion?: 'happy' | 'excited' | 
             ease: "easeInOut"
           }}
           style={{
-            fontSize: '90px',
+            width: '120px',
+            height: '120px',
             zIndex: 1,
-            filter: 'drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3))'
+            filter: 'drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3))',
+            objectFit: 'contain'
           }}
-        >
-          {emojis[emotion]}
-        </motion.div>
+        />
 
         {/* 외곽 빛나는 링 */}
         <motion.div
@@ -259,15 +262,16 @@ function SpeechBubble({ text, children }: { text?: string; children?: React.Reac
       style={{
         background: 'rgba(255, 255, 255, 0.98)',
         borderRadius: '25px',
-        padding: '25px 30px',
-        maxWidth: '350px',
+        padding: '20px 25px',
+        maxWidth: '90%',
         width: '100%',
         boxShadow: '0 15px 50px rgba(0, 0, 0, 0.25), 0 5px 15px rgba(0, 0, 0, 0.15)',
         backdropFilter: 'blur(15px)',
         border: '2px solid rgba(255, 255, 255, 0.5)',
         position: 'relative',
         marginTop: '15px',
-        zIndex: 1
+        zIndex: 1,
+        boxSizing: 'border-box'
       }}
     >
       {/* 말풍선 꼬리 */}
@@ -457,7 +461,7 @@ function IntroScreen({ onNext, userName }: any) {
 }
 
 // Step 3: 적성검사 화면
-function AptitudeScreen({ onNext, openWebView }: any) {
+function AptitudeScreen({ onNext }: any) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -478,7 +482,7 @@ function AptitudeScreen({ onNext, openWebView }: any) {
       </SpeechBubble>
 
       <div style={{ marginTop: '35px', display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center' }}>
-        <GradientButton onClick={() => openWebView('https://albi.kr/job-test', '적성검사')}>
+        <GradientButton onClick={() => window.location.href = 'https://albi.kr/job-test'}>
           적성검사 시작하기 📝
         </GradientButton>
 
@@ -535,7 +539,7 @@ function InterviewIntroScreen({ onNext, userName }: any) {
 }
 
 // Step 5: 면접 화면
-function InterviewScreen({ onNext, openWebView }: any) {
+function InterviewScreen({ onNext }: any) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -556,7 +560,7 @@ function InterviewScreen({ onNext, openWebView }: any) {
       </SpeechBubble>
 
       <div style={{ marginTop: '35px', display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center' }}>
-        <GradientButton onClick={() => openWebView('https://albi.kr/chat', '면접 시뮬레이션')}>
+        <GradientButton onClick={() => window.location.href = 'https://albi.kr/chat'}>
           면접 시작하기 🚀
         </GradientButton>
 
@@ -639,7 +643,7 @@ function ResultScreen({ onNext, userName }: any) {
 }
 
 // Step 7: 구독 화면
-function SubscribeScreen({ openWebView }: any) {
+function SubscribeScreen() {
   const features = [
     { icon: '🤖', title: '1:1 AI 멘토링', desc: '24시간 무제한' },
     { icon: '🗺️', title: '맞춤 로드맵', desc: '당신만의 학습 경로' },
@@ -705,12 +709,12 @@ function SubscribeScreen({ openWebView }: any) {
       </motion.div>
 
       <div style={{ marginTop: '30px', display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center' }}>
-        <GradientButton onClick={() => openWebView('https://albi.kr', 'Albi')} variant="success">
+        <GradientButton onClick={() => window.location.href = 'https://albi.kr'} variant="success">
           14일 무료 체험 시작 🎁
         </GradientButton>
 
         <motion.button
-          onClick={() => openWebView('https://albi.kr', 'Albi')}
+          onClick={() => window.location.href = 'https://albi.kr'}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           style={{
