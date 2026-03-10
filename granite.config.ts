@@ -1,7 +1,7 @@
 import { defineConfig } from '@apps-in-toss/web-framework/config';
 
 export default defineConfig({
-  // 앱 이름
+  // 앱 이름 (콘솔에 등록한 이름과 동일해야 함)
   appName: 'albi',
   
   // 브랜드 정보
@@ -16,7 +16,7 @@ export default defineConfig({
     host: 'localhost',
     port: 3000,
     commands: {
-      dev: '',
+      dev: 'echo "Dev mode"',
       build: 'node build.cjs',
     },
   },
@@ -24,9 +24,11 @@ export default defineConfig({
   // 빌드 출력 디렉토리
   outdir: 'dist',
   
+  // WebView 타입 설정 (문서 예시 기반)
+  webViewProps: {
+    type: 'partner', // 비게임 파트너사 콘텐츠
+  },
+  
   // 권한 요청
-  permissions: [
-    'camera',
-    'push-notifications',
-  ],
+  permissions: [],
 });
