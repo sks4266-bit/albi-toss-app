@@ -11,10 +11,10 @@ export default defineConfig({
   
   web: {
     host: 'localhost',
-    port: 3000,
+    port: 5173,
     commands: {
-      dev: 'echo "Dev mode"',
-      build: 'node build.cjs',
+      dev: 'vite',
+      build: 'vite build',
     },
   },
   
