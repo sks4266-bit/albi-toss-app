@@ -48,14 +48,18 @@ jobs:
       - name: Check build output
         run: |
           echo "✅ Build completed!"
+          echo ""
+          echo "=== Project root ==="
+          ls -lh *.ait 2>/dev/null || echo "No .ait in root"
+          echo ""
           echo "=== dist/ folder ==="
           ls -lhR dist/
           echo ""
-          echo "=== Searching for .ait files ==="
-          find dist/ -name "*.ait" -type f
-          if find dist/ -name "*.ait" -type f | grep -q .; then
+          echo "=== Searching for .ait files everywhere ==="
+          find . -name "*.ait" -type f
+          if find . -name "*.ait" -type f | grep -q .; then
             echo "✅ .ait file found:"
-            find dist/ -name "*.ait" -type f -exec ls -lh {} \;
+            find . -name "*.ait" -type f -exec ls -lh {} \;
           else
             echo "❌ .ait file not found!"
             exit 1
@@ -67,8 +71,8 @@ jobs:
         with:
           name: albi-toss-app-${{ github.sha }}
           path: |
-            dist/**/*.ait
-            dist/*.ait
+            **/*.ait
+            *.ait
           retention-days: 30
       
       # 8. 빌드 성공 알림
