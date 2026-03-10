@@ -24,11 +24,9 @@ export default defineConfig({
   // 빌드 출력 디렉토리
   outdir: 'dist',
   
-  // WebView 타입 설정 (문서 예시 기반)
+  // WebView 타입 설정 및 URL 지정
   webViewProps: {
-    type: 'partner', // 비게임 파트너사 콘텐츠
+    type: 'partner',
+    url: 'https://albi.kr',
   },
-  
-  // 권한 요청
-  permissions: [],
 });
