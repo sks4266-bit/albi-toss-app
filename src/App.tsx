@@ -125,40 +125,49 @@ function App() {
               gap: '10px',
               flexDirection: 'column'
             }}>
-              <button style={{
-                padding: '12px',
-                fontSize: '14px',
-                fontWeight: '600',
-                color: 'white',
-                background: '#6366F1',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer'
-              }}>
+              <button 
+                onClick={() => window.location.href = 'https://albi.kr/interview'}
+                style={{
+                  padding: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: '#6366F1',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer'
+                }}
+              >
                 📝 AI 면접 준비
               </button>
-              <button style={{
-                padding: '12px',
-                fontSize: '14px',
-                fontWeight: '600',
-                color: 'white',
-                background: '#8b5cf6',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer'
-              }}>
+              <button 
+                onClick={() => window.location.href = 'https://albi.kr/resume'}
+                style={{
+                  padding: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: '#8b5cf6',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer'
+                }}
+              >
                 💼 이력서 작성
               </button>
-              <button style={{
-                padding: '12px',
-                fontSize: '14px',
-                fontWeight: '600',
-                color: 'white',
-                background: '#a855f7',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer'
-              }}>
+              <button 
+                onClick={() => window.location.href = 'https://albi.kr/mentor'}
+                style={{
+                  padding: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: '#a855f7',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer'
+                }}
+              >
                 👥 멘토 매칭
               </button>
             </div>
