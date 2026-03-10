@@ -23,7 +23,7 @@ export default defineConfig({
     port: 3000,
     commands: {
       dev: '',
-      build: 'node build.js',
+      build: 'node build.cjs',
     },
   },
   
