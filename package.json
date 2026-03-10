@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "ait dev",
-    "prebuild": "node -e \"const fs = require('fs'); if (!fs.existsSync('dist')) fs.mkdirSync('dist', {recursive: true}); const files = fs.readdirSync('public'); files.forEach(f => fs.cpSync('public/' + f, 'dist/' + f, {recursive: true}));\"",
-    "build": "npm run prebuild && ait build",
+    "prepare-dist": "node -e \"const fs = require('fs'); if (!fs.existsSync('dist')) fs.mkdirSync('dist', {recursive: true}); const files = fs.readdirSync('public'); files.forEach(f => fs.cpSync('public/' + f, 'dist/' + f, {recursive: true}));\"",
+    "build": "npm run prepare-dist && ait build",
     "deploy": "ait deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
