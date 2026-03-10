@@ -46,6 +46,21 @@ function App() {
     if (step === 'welcome') {
       typeText('안녕하세요! 저는 AI 취업 도우미 알비예요 🚀');
     }
+    
+    // 뒤로가기 이벤트 처리
+    const handleBackButton = (e: PopStateEvent) => {
+      if (step === 'welcome') {
+        // 최초 화면에서 뒤로가기 시 종료
+        if (window.confirm('Albi를 종료하시겠습니까?')) {
+          window.history.back();
+        } else {
+          e.preventDefault();
+        }
+      }
+    };
+    
+    window.addEventListener('popstate', handleBackButton);
+    return () => window.removeEventListener('popstate', handleBackButton);
   }, [step]);
 
   return (
@@ -59,7 +74,8 @@ function App() {
       padding: '20px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      colorScheme: 'light' // 라이트 모드 명시
     }}>
       {/* 배경 애니메이션 요소 */}
       <BackgroundStars />
@@ -78,11 +94,11 @@ function App() {
   );
 }
 
-// 배경 별 애니메이션
+// 배경 별 애니메이션 (성능 최적화: 20개 → 8개)
 function BackgroundStars() {
   return (
     <>
-      {[...Array(20)].map((_, i) => (
+      {[...Array(8)].map((_, i) => (
         <motion.div
           key={i}
           initial={{ opacity: 0, scale: 0 }}
